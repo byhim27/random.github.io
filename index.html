@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="icon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random SDT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+        }
+        input {
+            width: 95%;
+            padding: 5px;
+            margin-bottom: 15px;
+            border: 3px solid #4bc81e;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #phone-numbers {
+            display: none;
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 5px;
+            text-align: center;
+        }
+        .copy-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .phone-icon {
+            width: 30px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random 💙</h1> <!-- Thêm biểu tượng 💙 vào tiêu đề -->
+        <input type="text" id="prefix" placeholder="Nhập 4 số đầu" onkeypress="handleKeyPress(event)">
+        <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
+        <div id="phone-numbers">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Số Điện Thoại</th>
+                        <th>Sao Chép</th>
+                    </tr>
+                </thead>
+                <tbody id="phone-numbers-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function generatePhoneNumber() {
+            const prefix = document.getElementById("prefix").value;
+            if (prefix.length !== 4 || isNaN(prefix)) {
+                document.getElementById("error-message").style.display = "block";
+                setTimeout(function () {
+                    document.getElementById("error-message").style.display = "none";
+                }, 2000); // Ẩn thông báo sau 2 giây (2000 milliseconds)
+                return;
+            }
+
+            const randomDigits = Math.floor(100000 + Math.random() * 900000); // Đảm bảo 6 số cuối
+            const phoneNumber = prefix + randomDigits.toString(); // Chuyển đổi thành chuỗi để đảm bảo có đúng 10 chữ số
+            return phoneNumber;
+        }
+
+        function generatePhoneNumbers() {
+            const phoneNumbersTableBody = document.getElementById("phone-numbers-table-body");
+            phoneNumbersTableBody.innerHTML = "";
+
+            for (let i = 0; i < 20; i++) {
+                const phoneNumber = generatePhoneNumber();
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${phoneNumber}</td>
+                    <td><button class="copy-button" onclick="copyPhoneNumber(this)">Sao Chép</button></td>
+                `;
+                phoneNumbersTableBody.appendChild(row);
+            }
+
+            document.getElementById("phone-numbers").style.display = "block";
+        }
+
+        function copyPhoneNumber(button) {
+            const phoneNumber = button.parentNode.previousElementSibling.textContent;
+            const textarea = document.createElement("textarea");
+            textarea.value = phoneNumber;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
+            // Thay đổi màu nút sao chép thành đỏ
+            button.style.backgroundColor = "#FF0000";
+            button.textContent = "Đã Sao Chép";
+        }
+
+        // Thêm hàm lắng nghe sự kiện keypress cho trường nhập liệu
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                generatePhoneNumbers(); // Gọi hàm khi phím Enter được nhấn
+            }
+        }
+    </script>
+</body>
+</html>
