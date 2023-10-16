@@ -19,8 +19,25 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
-        h1 {
-            color: #333;
+        .blink-text {
+            animation: colorBlink 2s infinite;
+        }
+        @keyframes colorBlink {
+            0% {
+                color: blue;
+            }
+            25% {
+                color: red;
+            }
+            50% {
+                color: green;
+            }
+            75% {
+                color: orange;
+            }
+            100% {
+                color: blue;
+            }
         }
         input {
             width: 95%;
@@ -82,7 +99,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Random</h1> <!-- Thêm biểu tượng 💙 vào tiêu đề -->
+        <h1 class="blink-text">RANDOM</h1>
         <input type="text" id="prefix" placeholder="Nhập 4 số đầu" onkeypress="handleKeyPress(event)">
         <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
         <div id="phone-numbers">
