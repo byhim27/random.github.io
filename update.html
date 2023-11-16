@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="icon.PNG" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RANDOM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #226e22;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+        }
+
+        #left-content,
+        #right-content,
+        #main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        #left-content {
+            background-color: #f2f2f2;
+            width: 400px;
+        }
+
+        #left-content img,
+        #right-content img {
+            max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của thẻ div cha */
+            max-height: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của thẻ div cha */
+            object-fit: cover; /* Hiển thị hình ảnh mà không làm biến đổi tỉ lệ khung hình */
+            display: none; /* Ẩn tất cả các hình ảnh ban đầu */
+        }
+
+        #left-content img.active,
+        #right-content img.active {
+            display: block; /* Hiển thị chỉ hình ảnh hiện tại */
+        }
+
+        #right-content {
+            background-color: #e6e6e6;
+            width: 400px;
+        }
+
+        #main-content {
+            flex-grow: 1;
+            background-color: #bcfff9;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .container {
+            max-width: 330px;
+            margin: 30px auto;
+            padding: 60px;
+            border-radius: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .blink-text {
+            animation: colorBlink 2s infinite;
+        }
+
+        @keyframes colorBlink {
+            0% {
+                color: blue;
+            }
+            25% {
+                color: red;
+            }
+            50% {
+                color: green;
+            }
+            75% {
+                color: orange;
+            }
+            100% {
+                color: blue;
+            }
+        }
+
+        input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 3px solid #65f132;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #phone-numbers {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+            white-space: nowrap;
+            overflow-x: auto;
+            max-height: 400px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: center;
+        }
+
+        .copy-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="left-content">
+        <img src="trai.jpg" class="active" alt="Left Image 1">
+        <img src="trai1.jpg" alt="Left Image 2">
+        <!-- Thêm các hình ảnh khác nếu cần -->
+    </div>
+
+    <div id="main-content">
+        <div class="container">
+            <h1 class="blink-text">RANDOM</h1>
+            <input type="text" id="prefix" placeholder="Nhập 4 số đầu của nhà mạng bất kỳ" onkeypress="handleKeyPress(event)">
+            <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
+            <div id="phone-numbers">
+                <table>
+                    <thead>
+                        
+                    </thead>
+                    <tbody id="phone-numbers-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="right-content">
+        <img src="phai.jpg" class="active" alt="Right Image 1">
+        <img src="phai1.jpg" alt="Right Image 2">
+        <!-- Thêm các hình ảnh khác nếu cần -->
+    </div>
+
+    <script>
+        let currentLeftImage = 0;
+        let currentRightImage = 0;
+
+        function changeLeftImage() {
+            const leftImages = document.querySelectorAll("#left-content img");
+            leftImages[currentLeftImage].classList.remove("active");
+            currentLeftImage = (currentLeftImage + 1) % leftImages.length;
+            leftImages[currentLeftImage].classList.add("active");
+        }
+
+        function changeRightImage() {
+            const rightImages = document.querySelectorAll("#right-content img");
+            rightImages[currentRightImage].classList.remove("active");
+            currentRightImage = (currentRightImage + 1) % rightImages.length;
+            rightImages[currentRightImage].classList.add("active");
+        }
+
+        // Thực hiện thay đổi hình ảnh mỗi 5 giây
+        setInterval(changeLeftImage, 10000);
+        setInterval(changeRightImage, 10000);
+
+        function generatePhoneNumber() {
+            const prefix = document.getElementById("prefix").value;
+            if (prefix.length !== 4 || isNaN(prefix)) {
+                document.getElementById("error-message").style.display = "block";
+                setTimeout(function () {
+                    document.getElementById("error-message").style.display = "none";
+                }, 2000);
+                return;
+            }
+
+            const randomDigits = Math.floor(100000 + Math.random() * 900000);
+            const phoneNumber = prefix + randomDigits.toString();
+            return phoneNumber;
+        }
+
+        function generatePhoneNumbers() {
+            const phoneNumbersTableBody = document.getElementById("phone-numbers-table-body");
+            phoneNumbersTableBody.innerHTML = "";
+
+            for (let i = 0; i < 20; i++) {
+                const phoneNumber = generatePhoneNumber();
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${phoneNumber}</td>
+                    <td><button class="copy-button" onclick="copyPhoneNumber(this)">Sao Chép</button></td>
+                `;
+                phoneNumbersTableBody.appendChild(row);
+            }
+
+            document.getElementById("phone-numbers").style.display = "block";
+        }
+
+        function copyPhoneNumber(button) {
+            const phoneNumber = button.parentNode.previousElementSibling.textContent;
+            const textarea = document.createElement("textarea");
+            textarea.value = phoneNumber;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
+            button.style.backgroundColor = "#FF0000";
+            button.textContent = "Đã Sao Chép";
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                generatePhoneNumbers();
+            }
+        }
+    </script>
+    <!--<script src="https://itexpress.vn/API/files/it.snow.js"></script>-->
+</body>
+</html>
