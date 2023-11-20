@@ -33,15 +33,15 @@
 
         #left-content img,
         #right-content img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-            display: none;
+            max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của thẻ div cha */
+            max-height: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của thẻ div cha */
+            object-fit: cover; /* Hiển thị hình ảnh mà không làm biến đổi tỉ lệ khung hình */
+            display: none; /* Ẩn tất cả các hình ảnh ban đầu */
         }
 
         #left-content img.active,
         #right-content img.active {
-            display: block;
+            display: block; /* Hiển thị chỉ hình ảnh hiện tại */
         }
 
         #right-content {
@@ -58,7 +58,7 @@
 
         .container {
             max-width: 330px;
-            margin: 0px auto;
+            margin: 30px auto;
             padding: 60px;
             border-radius: 50px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -66,51 +66,6 @@
 
         .blink-text {
             animation: colorBlink 2s infinite;
-        }
-
-        .navigation-buttons {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .navigation-button {
-            text-transform: uppercase;
-            font-weight: bold;
-            background-color: #f37906;
-            color: #fff;
-            padding: 15px 22px;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .navigation-button.active {
-            animation: colorBlinkButtons 2s infinite;
-            background-color: #004080;
-        }
-
-        .navigation-button:hover {
-            background-color: #0056b3;
-        }
-
-        @keyframes colorBlinkButtons {
-            0% {
-                color: blue;
-            }
-            25% {
-                color: red;
-            }
-            50% {
-                color: green;
-            }
-            75% {
-                color: orange;
-            }
-            100% {
-                color: blue;
-            }
         }
 
         @keyframes colorBlink {
@@ -132,7 +87,7 @@
         }
 
         input {
-            width: 92%;
+            width: 95%;
             padding: 10px;
             margin-bottom: 15px;
             border: 3px solid #65f132;
@@ -201,15 +156,6 @@
     <div id="main-content">
         <div class="container">
             <h1 class="blink-text">RANDOM</h1>
-            
-            <!-- Navigation buttons container -->
-            <div class="navigation-buttons">
-                <a href="https://byhim27.github.io/random.github.io/tintuc.html" class="navigation-button" id="btnNews">Tin Tức</a>
-                <a href="https://byhim27.github.io/random.github.io/sukien.html" class="navigation-button" id="btnEvents">Sự Kiện</a>
-                <a href="https://byhim27.github.io/random.github.io/uudai.html" class="navigation-button" id="btnOffers">Ưu Đãi</a>
-                <a href="https://live.jasfx.net/signup?_gl=1*1oefpwr*_ga*Nzc5MDA0NDg1LjE2OTQxNjAyOTk.*_ga_FY66ZY14ZE*MTcwMDQ2NTQ1MC40NS4wLjE3MDA0NjU0NTAuMC4wLjA.*_ga_RF8Y35RE9H*MTcwMDQ2NTQ1MC40NS4wLjE3MDA0NjU0NTAuMC4wLjA.&_ga=2.129015886.372041224.1700465451-779004485.1694160299" class="navigation-button" id="btnAccount">Mở Tài Khoản</a>
-            </div>
-            
             <input type="text" id="prefix" placeholder="Nhập 4 số đầu của nhà mạng bất kỳ" onkeypress="handleKeyPress(event)">
             <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
             <div id="phone-numbers">
@@ -232,7 +178,6 @@
     <script>
         let currentLeftImage = 0;
         let currentRightImage = 0;
-        let currentButton = 0;
 
         function changeLeftImage() {
             const leftImages = document.querySelectorAll("#left-content img");
@@ -248,21 +193,10 @@
             rightImages[currentRightImage].classList.add("active");
         }
 
-        function changeButtonColor() {
-            const navigationButtons = document.querySelectorAll(".navigation-button");
-            navigationButtons.forEach(button => button.classList.remove("active"));
-            currentButton = (currentButton + 1) % navigationButtons.length;
-            navigationButtons[currentButton].classList.add("active");
-        }
-
-        // Thực hiện thay đổi hình ảnh mỗi 10 giây
+        // Thực hiện thay đổi hình ảnh mỗi 5 giây
         setInterval(changeLeftImage, 10000);
         setInterval(changeRightImage, 10000);
 
-        // Thực hiện thay đổi màu nút mỗi 2 giây
-        setInterval(changeButtonColor, 2000);
-
-        // Các hàm khác không thay đổi
         function generatePhoneNumber() {
             const prefix = document.getElementById("prefix").value;
             if (prefix.length !== 4 || isNaN(prefix)) {
@@ -314,5 +248,6 @@
             }
         }
     </script>
+    <!--<script src="https://itexpress.vn/API/files/it.snow.js"></script>-->
 </body>
 </html>
