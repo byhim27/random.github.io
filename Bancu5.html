@@ -191,51 +191,6 @@
             cursor: pointer;
             border-radius: 5px;
         }
-
-        /* CSS cho form đánh giá và thông báo */
-        #feedback-popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-        }
-
-        #feedback-box {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        #feedback-buttons {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        #feedback-buttons button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #feedback-buttons a button {
-            text-decoration: none;
-            color: #fff;
-        }
-
-        #feedback-buttons button:hover, #feedback-buttons a button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
@@ -251,10 +206,12 @@
             
             <!-- Navigation buttons container -->
             <div class="navigation-buttons">
+                <!-- Thay đổi href của các nút điều hướng để mở ra tab mới -->
                 <a href="https://vnwallstreet.top/#/home" class="navigation-button" id="btnNews" target="_blank">Tin Tức (New)</a>
                 <a href="https://byhim27.github.io/random.github.io/sukien.html" class="navigation-button" id="btnEvents" target="_blank">Sự Kiện</a>
                 <a href="https://byhim27.github.io/random.github.io/uudai.html" class="navigation-button" id="btnOffers" target="_blank">Ưu Đãi</a>
                 <a href="https://live.jasfx.net/signup?_gl=1*1oefpwr*_ga*Nzc5MDA0NDg1LjE2OTQxNjAyOTk.*_ga_FY66ZY14ZE*MTcwMDQ2NTQ1MC40NS4wLjE3MDA0NjU0NTAuMC4wLjA.*_ga_RF8Y35RE9H*MTcwMDQ2NTQ1MC40NS4wLjE3MDA0NjU0NTAuMC4wLjA.&_ga=2.129015886.372041224.1700465451-779004485.1694160299" class="navigation-button" id="btnAccount" target="_blank">Mở Tài Khoản</a>
+
             </div>
             
             <input type="text" id="prefix" placeholder="Nhập 4 số đầu của nhà mạng bất kỳ" onkeypress="handleKeyPress(event)">
@@ -274,18 +231,6 @@
         <img src="phai.jpg" class="active" alt="Right Image 1">
         <img src="phai1.jpg" alt="Right Image 2">
         <!-- Thêm các hình ảnh khác nếu cần -->
-    </div>
-
-    <!-- Form đánh giá và thông báo -->
-    <div id="feedback-popup">
-        <div id="feedback-box">
-            <h2>Đánh Giá Của Bạn</h2>
-            <p>Cảm ơn bạn đã sử dụng dịch vụ. Hãy cho chúng tôi biết ý kiến của bạn!</p>
-            <div id="feedback-buttons">
-                <button onclick="closeFeedbackForm()">Đóng</button>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfp6eI0iE-CLECw3RQ7YoGKdPXWbWHOdBZsuoVzTM0IqDJh1Q/viewform" target="_blank"><button>Đánh Giá</button></a>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -372,16 +317,6 @@
                 generatePhoneNumbers();
             }
         }
-
-        // Hàm đóng form đánh giá
-        function closeFeedbackForm() {
-            document.getElementById("feedback-popup").style.display = "none";
-        }
-
-        // Hiển thị form đánh giá khi trang được load
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("feedback-popup").style.display = "flex";
-        });
     </script>
 </body>
 </html>
