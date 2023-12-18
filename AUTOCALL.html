@@ -5,7 +5,7 @@
     <link rel="icon" href="icon.PNG" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RANDOM</title>
+    <title>AUTO CALL</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -223,7 +223,7 @@
 
     <div id="main-content">
         <div class="container">
-            <h1 class="blink-text">RANDOM</h1>
+            <h1 class="blink-text">AUTO CALL</h1>
 
             <!-- Navigation buttons container -->
             <div class="navigation-buttons">
@@ -325,7 +325,7 @@
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td class="original-phone-number">${originalNumber}</td>
-                    <td><button class="copy-button" onclick="copyPhoneNumber(this, '${callLink}')">Copy Call</button></td>
+                    <td><button class="copy-button" onclick="copyPhoneNumber(this, '${callLink}', '${originalNumber}')">Copy Call</button></td>
                 `;
                 phoneNumbersTableBody.appendChild(row);
             }
@@ -334,7 +334,16 @@
         }
 
         // Cập nhật hàm copyPhoneNumber để mở link trong cửa sổ mới và thêm class mới khi nút được ấn
-        function copyPhoneNumber(button, link) {
+        function copyPhoneNumber(button, link, originalNumber) {
+            // Tạo một textarea để sao chép số điện thoại chưa mã hóa
+            const textarea = document.createElement("textarea");
+            textarea.value = originalNumber;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
+            // Mở liên kết trong cửa sổ mới
             window.open(link, '_blank');
 
             // Thêm class mới
