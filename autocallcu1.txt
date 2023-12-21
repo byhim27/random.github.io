@@ -59,7 +59,7 @@
 
         .container {
             max-width: 330px;
-            margin: 0 auto;
+            margin: 0px auto;
             padding: 60px;
             border-radius: 50px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -200,12 +200,14 @@
             background-color: #0056b3;
         }
 
+        /* Thêm một class mới cho nút khi được ấn */
         .copied-button {
             background-color: #e60000 !important;
             transform: scale(1.1);
             transition: background-color 0.3s, transform 0.3s;
         }
 
+        /* Thêm một class mới cho số điện thoại chưa mã hóa */
         .original-phone-number {
             font-weight: bold;
         }
@@ -221,9 +223,11 @@
 
     <div id="main-content">
         <div class="container">
-            <h1 class="blink-text" onclick="reloadPage()">AUTO CALL</h1>
+            <h1 class="blink-text">AUTO CALL</h1>
 
+            <!-- Navigation buttons container -->
             <div class="navigation-buttons">
+                <!-- Thay đổi href của các nút điều hướng để mở ra tab mới -->
                 <a href="https://vnwallstreet.top/#/home" class="navigation-button" id="btnNews" target="_blank">Tin Tức (New)</a>
                 <a href="https://byhim27.github.io/random.github.io/sukien.html" class="navigation-button" id="btnEvents" target="_blank">Sự Kiện</a>
                 <a href="https://byhim27.github.io/random.github.io/uudai.html" class="navigation-button" id="btnOffers" target="_blank">Ưu Đãi</a>
@@ -235,7 +239,9 @@
             <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
             <div id="phone-numbers">
                 <table>
-                    <thead></thead>
+                    <thead>
+
+                    </thead>
                     <tbody id="phone-numbers-table-body"></tbody>
                 </table>
             </div>
@@ -274,14 +280,14 @@
             navigationButtons[currentButton].classList.add("active");
         }
 
+        // Thực hiện thay đổi hình ảnh mỗi 10 giây
         setInterval(changeLeftImage, 10000);
         setInterval(changeRightImage, 10000);
+
+        // Thực hiện thay đổi màu nút mỗi 2 giây
         setInterval(changeButtonColor, 2000);
 
-        function reloadPage() {
-            location.reload();
-        }
-
+        // Các hàm khác không thay đổi
         function generatePhoneNumber() {
             const prefix = document.getElementById("prefix").value;
             if (prefix.length !== 4 || isNaN(prefix)) {
@@ -327,7 +333,9 @@
             document.getElementById("phone-numbers").style.display = "block";
         }
 
+        // Cập nhật hàm copyPhoneNumber để mở link trong cửa sổ mới và thêm class mới khi nút được ấn
         function copyPhoneNumber(button, link, originalNumber) {
+            // Tạo một textarea để sao chép số điện thoại chưa mã hóa
             const textarea = document.createElement("textarea");
             textarea.value = originalNumber;
             document.body.appendChild(textarea);
@@ -335,8 +343,10 @@
             document.execCommand("copy");
             document.body.removeChild(textarea);
 
+            // Mở liên kết trong cửa sổ mới
             window.open(link, '_blank');
 
+            // Thêm class mới
             button.classList.add("copied-button");
         }
 
@@ -346,6 +356,7 @@
             }
         }
 
+        // Hàm mã hóa số điện thoại
         function encryptPhoneNumber(phoneNumber) {
             let encryptedNumber = "";
             for (let i = 0; i < phoneNumber.length; i++) {
@@ -364,7 +375,9 @@
             return encryptedNumber;
         }
 
+        // Hàm thay đổi số điện thoại theo yêu cầu
         function modifyNumbers(phoneNumber) {
+            // Logic thay đổi số điện thoại ở đây (để giữ nguyên, không làm gì cả)
             return phoneNumber;
         }
     </script>
