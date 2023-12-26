@@ -10,42 +10,26 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #635ad6;
+            background-color: #226e22;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            margin-top: 10px;
-        }
-
-        #login-form {
-            max-width: 330px;
-            margin: 0 auto;
-            padding: 60px;
-            border-radius: 50px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            background-color: #3fffe2;
-        }
-
-        #main-content {
-            background-color: #bcfff9;
-            overflow-y: auto;
-            max-height: 100vh;
-            width: 100%;
-            display: none;
             flex-direction: row;
-            justify-content: space-between;
+            height: 100vh;
         }
 
         #left-content,
-        #right-content {
+        #right-content,
+        #main-content {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100%;
-            width: 50%;
+        }
+
+        #left-content {
+            background-color: #f2f2f2;
+            width: 400px;
         }
 
         #left-content img,
@@ -61,13 +45,24 @@
             display: block;
         }
 
+        #right-content {
+            background-color: #e6e6e6;
+            width: 400px;
+        }
+
+        #main-content {
+            flex-grow: 1;
+            background-color: #bcfff9;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
         .container {
             max-width: 330px;
             margin: 0 auto;
             padding: 60px;
             border-radius: 50px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            background-color: #3fffe2;
         }
 
         .blink-text {
@@ -105,19 +100,15 @@
             0% {
                 color: blue;
             }
-
             25% {
                 color: red;
             }
-
             50% {
                 color: green;
             }
-
             75% {
                 color: orange;
             }
-
             100% {
                 color: blue;
             }
@@ -127,19 +118,15 @@
             0% {
                 color: blue;
             }
-
             25% {
                 color: red;
             }
-
             50% {
                 color: green;
             }
-
             75% {
                 color: orange;
             }
-
             100% {
                 color: blue;
             }
@@ -150,7 +137,7 @@
             padding: 10px;
             margin-bottom: 15px;
             border: 3px solid #65f132;
-            border-radius: 15px;
+            border-radius: 5px;
             margin-top: 10px;
             margin-left: -5px;
         }
@@ -160,7 +147,7 @@
             color: #fff;
             padding: 10px 20px;
             border: none;
-            border-radius: 15px;
+            border-radius: 5px;
             cursor: pointer;
         }
 
@@ -174,7 +161,7 @@
             color: #333;
             white-space: nowrap;
             overflow-x: auto;
-            max-height: 325px;
+            max-height: 400px;
         }
 
         table {
@@ -215,7 +202,6 @@
 
         .copied-button {
             background-color: #e60000 !important;
-            color: white;
             transform: scale(1.1);
             transition: background-color 0.3s, transform 0.3s;
         }
@@ -223,35 +209,17 @@
         .original-phone-number {
             font-weight: bold;
         }
-
-        .copied-button {
-            background-color: #e60000 !important;
-            color: white;
-            transform: scale(1.1);
-            transition: background-color 0.3s, transform 0.3s;
-        }
     </style>
 </head>
 
 <body>
-    <div id="login-form">
-        <form onsubmit="login(event)">
-            <label for="username">Số ZoIPer:</label>
-            <input type="text" id="username" required>
-            <br>
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" required>
-            <br>
-            <button type="submit">Đăng nhập</button>
-        </form>
+    <div id="left-content">
+        <img src="trai.jpg" class="active" alt="Left Image 1">
+        <img src="trai1.jpg" alt="Left Image 2">
+        <!-- Thêm các hình ảnh khác nếu cần -->
     </div>
 
     <div id="main-content">
-        <div id="left-content">
-            <img src="trai.jpg" class="active" alt="Left Image 1">
-            <img src="trai1.jpg" alt="Left Image 2">
-        </div>
-
         <div class="container">
             <h1 class="blink-text" onclick="reloadPage()">AUTO CALL</h1>
 
@@ -272,52 +240,15 @@
                 </table>
             </div>
         </div>
+    </div>
 
-        <div id="right-content">
-            <img src="phai.jpg" class="active" alt="Right Image 1">
-            <img src="phai1.jpg" alt="Right Image 2">
-        </div>
+    <div id="right-content">
+        <img src="phai.jpg" class="active" alt="Right Image 1">
+        <img src="phai1.jpg" alt="Right Image 2">
+        <!-- Thêm các hình ảnh khác nếu cần -->
     </div>
 
     <script>
-        let isLoggedIn = false;
-        const userCredentials = {
-            "5798": { password: "MTIzNDU2", zoiper: "5798" },
-            "5982": { password: "Y2hpZW41OTgy", zoiper: "5982" },
-            // Thêm các tài khoản khác nếu cần
-        };
-
-        function checkCredentials(username, password) {
-            const user = userCredentials[username];
-            if (!user) {
-                return false;
-            }
-
-            const decodedPassword = atob(user.password);
-            return password === decodedPassword;
-        }
-
-        function login(event) {
-    event.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    if (checkCredentials(username, password)) {
-        document.getElementById("login-form").style.display = "none";
-        document.getElementById("main-content").style.display = "flex";
-        isLoggedIn = true;
-        history.replaceState(null, null, window.location.href);
-    } else {
-        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
-    }
-}
-        window.onload = function () {
-            if (isLoggedIn) {
-                document.getElementById("login-form").style.display = "none";
-                document.getElementById("main-content").style.display = "flex";
-            }
-        }
-
         let currentLeftImage = 0;
         let currentRightImage = 0;
         let currentButton = 0;
@@ -348,30 +279,25 @@
         setInterval(changeButtonColor, 2000);
 
         function reloadPage() {
-    window.location.href = window.location.href;
-}
-
+            location.reload();
+        }
 
         function generatePhoneNumber() {
             const prefix = document.getElementById("prefix").value;
             if (prefix.length !== 4 || isNaN(prefix)) {
-                alert("Vui lòng nhập 4 số đầu của nhà mạng.");
+                document.getElementById("error-message").style.display = "block";
+                setTimeout(function () {
+                    document.getElementById("error-message").style.display = "none";
+                }, 2000);
                 return;
             }
 
-            const customNumbersInput = document.getElementById("customNumbers");
-            const customNumbers = customNumbersInput.value;
+            const customNumbers = document.getElementById("customNumbers").value;
             if (customNumbers.length !== 4 || isNaN(customNumbers)) {
-                alert("Vui lòng nhập 4 số ZoIPer của bạn.");
-                return;
-            }
-
-            const username = document.getElementById("username").value;
-            const loggedInUser = userCredentials[username];
-
-            // Kiểm tra xem số JoIPer nhập vào có khớp với tên đăng nhập không
-            if (!loggedInUser || loggedInUser.zoiper !== customNumbers) {
-                alert("Số ZoIPer không khớp với tên đăng nhập!");
+                document.getElementById("error-message").style.display = "block";
+                setTimeout(function () {
+                    document.getElementById("error-message").style.display = "none";
+                }, 2000);
                 return;
             }
 
@@ -411,13 +337,12 @@
 
             window.open(link, '_blank');
 
-            button.innerHTML = "Copied!";
             button.classList.add("copied-button");
         }
 
         function handleKeyPress(event) {
-            if (!/[0-9]/.test(event.key)) {
-                event.preventDefault();
+            if (event.key === 'Enter') {
+                generatePhoneNumbers();
             }
         }
 
@@ -440,7 +365,6 @@
         }
 
         function modifyNumbers(phoneNumber) {
-            // Có thể thêm các bước chỉnh sửa số điện thoại tại đây nếu cần
             return phoneNumber;
         }
     </script>
