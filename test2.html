@@ -362,7 +362,7 @@
             const customNumbersInput = document.getElementById("customNumbers");
             const customNumbers = customNumbersInput.value;
             if (customNumbers.length !== 4 || isNaN(customNumbers)) {
-                alert("Vui lòng nhập 4 số JoIPer của bạn.");
+                alert("Vui lòng nhập 4 số ZoIPer của bạn.");
                 return;
             }
 
@@ -371,7 +371,7 @@
 
             // Kiểm tra xem số JoIPer nhập vào có khớp với tên đăng nhập không
             if (!loggedInUser || loggedInUser.zoiper !== customNumbers) {
-                alert("Số JoIPer không khớp với tên đăng nhập!");
+                alert("Số ZoIPer không khớp với tên đăng nhập!");
                 return;
             }
 
