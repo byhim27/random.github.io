@@ -17,7 +17,7 @@
             flex-direction: column;
             align-items: center;
             height: 100vh;
-            margin-top: 0px;
+            margin-top: 10px;
         }
 
         #login-form {
@@ -65,10 +65,9 @@
             max-width: 615px;
             margin: 0 auto;
             padding: 60px;
-            border-radius: -15px;
+            border-radius: 50px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             background-color: #3fffe2;
-            margin-top: 5px;
         }
 
         .blink-text {
@@ -265,7 +264,7 @@
             </div>
 
             <input type="text" id="prefix" placeholder="Nhập 4 số đầu của nhà mạng bất kỳ" onkeypress="handleKeyPress(event)">
-            <input type="text" id="customNumbers" placeholder="Nhập số ZoIPer của bạn !" onkeydown="handleEnterKey(event)">
+            <input type="text" id="customNumbers" placeholder="Nhập số ZoIPer của bạn !">
             <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
             <div id="phone-numbers">
                 <table>
@@ -455,12 +454,6 @@
             // Có thể thêm các bước chỉnh sửa số điện thoại tại đây nếu cần
             return phoneNumber;
         }
-        function handleEnterKey(event) {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của phím Enter
-            generatePhoneNumbers(); // Gọi hàm khi Enter được ấn
-        }
-    }
     </script>
 </body>
 
