@@ -128,36 +128,32 @@ button:hover {
 #phone-numbers {
     font-size: 18px;
     color: #333;
-    white-space: nowrap;
-    overflow-x: auto;
-    max-height: 300px;
+    max-height: 300px; /* Đặt max-height cho div-container */
+    overflow-y: auto; /* Thêm thanh cuộn chỉ khi cần thiết */
     margin: 5px;
     margin-top: 5px;
     width: auto;
     box-sizing: border-box;
-    overflow: auto;
 }
-/* Thêm một lớp mới để giới hạn chiều rộng của bảng */
+
 .table-container {
     max-width: 100%;
     overflow-x: auto;
 }
+
 table {
     width: 100%;
-    margin-top: 10px;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
-table,
-th,
-td {
+th, td {
     border: 1px solid #ccc;
-}
-
-th,
-td {
     padding: 10px;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .copy-button {
