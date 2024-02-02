@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="logo.PNG" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTO CALL</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #635ad6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin-top: 0px;
+}
+
+#login-form {
+    max-width: 330px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #3fffe2;
+}
+
+#main-content {
+    background-color: #bcfff9;
+    overflow-y: auto;
+    max-height: 100vh;
+    width: 100%;
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#left-content,
+#right-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+}
+
+#left-content img,
+#right-content img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+#left-content img.active,
+#right-content img.active {
+    display: block;
+}
+
+.container {
+    max-width: 615px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #3fffe2;
+    margin-top: 5px;
+}
+
+.blink-text {
+    animation: colorBlink 2s infinite;
+}
+
+.navigation-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navigation-button {
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #15e269;
+    color: #651d7d;
+    padding: 15px 22px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.navigation-button.active {
+    animation: colorBlinkButtons 2s infinite;
+    background-color: #004080;
+}
+
+.navigation-button:hover {
+    background-color: #0056b3;
+}
+
+input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 3px solid #65f132;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-left: -5px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#phone-numbers {
+    font-size: 18px;
+    color: #333;
+    white-space: nowrap;
+    overflow-x: auto;
+    max-height: 300px;
+    margin: 5px;
+    margin-top: 5px;
+    width: auto;
+    box-sizing: border-box;
+    overflow: auto;
+}
+/* Thêm một lớp mới để giới hạn chiều rộng của bảng */
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+.copy-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.copy-button:hover {
+    background-color: #0056b3;
+}
+
+.copied-button {
+    background-color: #e60000 !important;
+    color: white;
+    transform: scale(1.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.original-phone-number {
+    font-weight: bold;
+}
+
+@keyframes colorBlinkButtons {
+    0% {
+        color: blue;
+    }
+
+    25% {
+        color: red;
+    }
+
+    50% {
+        color: green;
+    }
+
+    75% {
+        color: orange;
+    }
+
+    100% {
+        color: blue;
+    }
+}
+
+@keyframes colorBlink {
+    0% {
+        color: blue;
+    }
+
+    25% {
+        color: red;
+    }
+
+    50% {
+        color: green;
+    }
+
+    75% {
+        color: orange;
+    }
+
+    100% {
+        color: blue;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <div id="login-form">
+        <form onsubmit="login(event)">
+            <label for="username">Số ZoIPer:</label>
+            <input type="text" id="username" required>
+            <br>
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" required>
+            <br>
+            <button type="submit">Đăng nhập</button>
+        </form>
+    </div>
+
+    <div id="main-content">
+        <div id="left-content">
+            <img src="trai.jpg" class="active" alt="Left Image 1">
+            <img src="trai1.jpg" alt="Left Image 2">
+        </div>
+
+        <div class="container">
+            <h1 class="blink-text" onclick="reloadPage()">AUTO CALL</h1>
+
+            <div class="navigation-buttons">
+                <a href="https://vnwallstreet.top/#/home" class="navigation-button" id="btnNews" target="_blank">Tin Tức (New)</a>
+                <a href="https://byhim27.github.io/random.github.io/sukien.html" class="navigation-button" id="btnEvents" target="_blank">Sự Kiện</a>
+                <a href="https://byhim27.github.io/random.github.io/uudai.html" class="navigation-button" id="btnOffers" target="_blank">Ưu Đãi</a>
+                <a href="https://live.jasfx.net/signup?_gl=1*1oefpwr*_ga*Nzc5MDA0NDg1LjE2OTQxNjAyOTk.*_ga_FY66ZY14ZE*MTcwMDQ2NTQ1MC40NS4wLjE3MDA0NjU0NTAuMC4wLjA.*_ga_RF8Y35RE9H*MTcwMDQ2NTQ1MC40NS4wLjE3MDA0NjU0NTAuMC4wLjA.&_ga=2.129015886.372041224.1700465451-779004485.1694160299" class="navigation-button" id="btnAccount" target="_blank">Mở Tài Khoản</a>
+            </div>
+
+            <input type="text" id="prefix" placeholder="Nhập 4 số đầu của nhà mạng bất kỳ" onkeypress="handleKeyPress(event)">
+            <input type="text" id="customNumbers" placeholder="Nhập số ZoIPer của bạn !" onkeydown="handleEnterKey(event)">
+            <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
+            <div id="phone-numbers">
+                <table>
+                    <thead></thead>
+                    <tbody id="phone-numbers-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="right-content">
+            <img src="phai.jpg" class="active" alt="Right Image 1">
+            <img src="phai1.jpg" alt="Right Image 2">
+        </div>
+    </div>
+
+<script>
+        let isLoggedIn = false;
+        const userCredentials = {
+            "5798": { password: "ZHVjYW5oNTc5OA==", zoiper: "5798" },
+            "5982": { password: "Y2hpZW41OTgy", zoiper: "5982" },
+            "5951": { password: "aHVvbmc1OTUx", zoiper: "5951" },
+            "5780": { password: "dGFuNTc4MA==", zoiper: "5780" },
+            "5871": { password: "aHV5NTg3MQ==", zoiper: "5871" },
+            "5920": { password: "ZGF0NTkyMA==", zoiper: "5920" },
+            "5914": { password: "aGFuaDU5MTQ=", zoiper: "5914" },
+            "5855": { password: "aG9hbmdhbmg1ODU1", zoiper: "5855" },
+            "5776": { password: "Y2h1bmc1Nzc2", zoiper: "5776" },
+            "5801": { password: "ZHVvbmc1ODAx", zoiper: "5801" },
+            "5794": { password: "dHJ1b25nNTc5NA==", zoiper: "5794" },
+
+            // Thêm các tài khoản khác nếu cần
+        };
+
+        function checkCredentials(username, password) {
+            const user = userCredentials[username];
+            if (!user) {
+                return false;
+            }
+
+            const decodedPassword = atob(user.password);
+            return password === decodedPassword;
+        }
+
+        function login(event) {
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (checkCredentials(username, password)) {
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("main-content").style.display = "flex";
+        isLoggedIn = true;
+        history.replaceState(null, null, window.location.href);
+    } else {
+        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+    }
+}
+        window.onload = function () {
+            if (isLoggedIn) {
+                document.getElementById("login-form").style.display = "none";
+                document.getElementById("main-content").style.display = "flex";
+            }
+        }
+
+        let currentLeftImage = 0;
+        let currentRightImage = 0;
+        let currentButton = 0;
+
+        function changeLeftImage() {
+            const leftImages = document.querySelectorAll("#left-content img");
+            leftImages[currentLeftImage].classList.remove("active");
+            currentLeftImage = (currentLeftImage + 1) % leftImages.length;
+            leftImages[currentLeftImage].classList.add("active");
+        }
+
+        function changeRightImage() {
+            const rightImages = document.querySelectorAll("#right-content img");
+            rightImages[currentRightImage].classList.remove("active");
+            currentRightImage = (currentRightImage + 1) % rightImages.length;
+            rightImages[currentRightImage].classList.add("active");
+        }
+
+        function changeButtonColor() {
+            const navigationButtons = document.querySelectorAll(".navigation-button");
+            navigationButtons.forEach(button => button.classList.remove("active"));
+            currentButton = (currentButton + 1) % navigationButtons.length;
+            navigationButtons[currentButton].classList.add("active");
+        }
+
+        setInterval(changeLeftImage, 10000);
+        setInterval(changeRightImage, 10000);
+        setInterval(changeButtonColor, 2000);
+
+        function reloadPage() {
+    window.location.href = window.location.href;
+}
+
+
+        function generatePhoneNumber() {
+            const prefix = document.getElementById("prefix").value;
+            if (prefix.length !== 4 || isNaN(prefix)) {
+                alert("Vui lòng nhập 4 số đầu của nhà mạng.");
+                return;
+            }
+
+            const customNumbersInput = document.getElementById("customNumbers");
+            const customNumbers = customNumbersInput.value;
+            if (customNumbers.length !== 4 || isNaN(customNumbers)) {
+                alert("Vui lòng nhập 4 số ZoIPer của bạn.");
+                return;
+            }
+
+            const username = document.getElementById("username").value;
+            const loggedInUser = userCredentials[username];
+
+            // Kiểm tra xem số JoIPer nhập vào có khớp với tên đăng nhập không
+            if (!loggedInUser || loggedInUser.zoiper !== customNumbers) {
+                alert("Số ZoIPer không khớp với tên đăng nhập!");
+                return;
+            }
+
+            const randomDigits = Math.floor(100000 + Math.random() * 900000);
+            const phoneNumber = prefix + randomDigits.toString();
+            const encryptedPhoneNumber = encryptPhoneNumber(phoneNumber);
+            const modifiedNumbers = modifyNumbers(encryptedPhoneNumber);
+
+            const callLink = `https://api-prod.mipbx.vn/api/v1/call/clicktocallv2?secret=b3f9e70bb94a8660b718fbc280d25680&phone=${modifiedNumbers}&extension=${customNumbers}`;
+            return { callLink, originalNumber: phoneNumber };
+        }
+
+        function generatePhoneNumbers() {
+            const phoneNumbersTableBody = document.getElementById("phone-numbers-table-body");
+            phoneNumbersTableBody.innerHTML = "";
+
+            for (let i = 0; i < 20; i++) {
+                const { callLink, originalNumber } = generatePhoneNumber();
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td class="original-phone-number">${originalNumber}</td>
+                    <td><button class="copy-button" onclick="copyPhoneNumber(this, '${callLink}', '${originalNumber}')">Copy Call</button></td>
+                `;
+                phoneNumbersTableBody.appendChild(row);
+            }
+
+            document.getElementById("phone-numbers").style.display = "block";
+        }
+
+        function copyPhoneNumber(button, link, originalNumber) {
+            const textarea = document.createElement("textarea");
+            textarea.value = originalNumber;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
+            window.open(link, '_blank');
+
+            button.innerHTML = "Copied!";
+            button.classList.add("copied-button");
+        }
+
+        function handleKeyPress(event) {
+            if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+            }
+        }
+
+        function encryptPhoneNumber(phoneNumber) {
+            let encryptedNumber = "";
+            for (let i = 0; i < phoneNumber.length; i++) {
+                let digit = parseInt(phoneNumber[i]);
+                if (i === 4) {
+                    digit = (digit + 1) % 10;
+                } else if (i === 5) {
+                    digit = (digit - 1 + 10) % 10;
+                } else if (i === 8) {
+                    digit = (digit - 1 + 10) % 10;
+                } else if (i === 9) {
+                    digit = (digit + 1) % 10;
+                }
+                encryptedNumber += digit.toString();
+            }
+            return encryptedNumber;
+        }
+
+        function modifyNumbers(phoneNumber) {
+            // Có thể thêm các bước chỉnh sửa số điện thoại tại đây nếu cần
+            return phoneNumber;
+        }
+        function handleEnterKey(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của phím Enter
+            generatePhoneNumbers(); // Gọi hàm khi Enter được ấn
+        }
+    }
+    </script>
+</body>
+
+</html>
