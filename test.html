@@ -342,31 +342,35 @@
             }
         }
 
-        function register(event) {
-            event.preventDefault();
-            const newUsername = document.getElementById("new-username").value;
-            const newPassword = document.getElementById("new-password").value;
+function register(event) {
+    event.preventDefault();
+    const newUsername = document.getElementById("new-username").value;
+    const newPassword = document.getElementById("new-password").value;
 
-            if (newUsername.trim() === "" || newPassword.trim() === "") {
-                alert("Vui lòng nhập đầy đủ thông tin!");
-                return;
-            }
+    if (newUsername.trim() === "" || newPassword.trim() === "") {
+        alert("Vui lòng nhập đầy đủ thông tin!");
+        return;
+    }
 
-            // Kiểm tra xem tài khoản đã tồn tại chưa
-            if (userCredentials.hasOwnProperty(newUsername)) {
-                alert("Tài khoản đã tồn tại!");
-                return;
-            }
+    // Kiểm tra xem tài khoản đã tồn tại chưa
+    if (userCredentials.hasOwnProperty(newUsername)) {
+        alert("Tài khoản đã tồn tại!");
+        return;
+    }
 
-            // Mã hóa mật khẩu bằng Base64
-            const encodedPassword = btoa(newPassword);
+    // Mã hóa mật khẩu bằng Base64
+    const encodedPassword = btoa(newPassword);
 
-            // Lưu thông tin tài khoản mới
-            userCredentials[newUsername] = { password: encodedPassword, zoiper: newUsername };
+    // Lưu thông tin tài khoản mới
+    userCredentials[newUsername] = { password: encodedPassword, zoiper: newUsername };
 
-            alert("Tạo tài khoản thành công!");
-        }
+    // Cập nhật vào mã nguồn
+    const scriptTag = document.createElement("script");
+    scriptTag.innerHTML = `const userCredentials = ${JSON.stringify(userCredentials)};`;
+    document.head.appendChild(scriptTag);
 
+    alert("Tạo tài khoản thành công!");
+}
         function reloadPage() {
             window.location.href = window.location.href;
         }
