@@ -361,15 +361,30 @@ function register(event) {
     // Mã hóa mật khẩu bằng Base64
     const encodedPassword = btoa(newPassword);
 
-    // Lưu thông tin tài khoản mới
+    // Lưu thông tin tài khoản mới vào biến userCredentials
     userCredentials[newUsername] = { password: encodedPassword, zoiper: newUsername };
 
-    // Cập nhật vào mã nguồn
-    const scriptTag = document.createElement("script");
-    scriptTag.innerHTML = `const userCredentials = ${JSON.stringify(userCredentials)};`;
-    document.head.appendChild(scriptTag);
-
-    alert("Tạo tài khoản thành công!");
+    // Gửi yêu cầu POST để lưu thông tin tài khoản lên máy chủ
+    fetch('https://example.com/save-account', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: newUsername,
+            password: newPassword // Không mã hóa mật khẩu ở đây nếu không cần thiết
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save account');
+        }
+        alert("Tạo tài khoản thành công!");
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Đã xảy ra lỗi khi tạo tài khoản");
+    });
 }
         function reloadPage() {
             window.location.href = window.location.href;
