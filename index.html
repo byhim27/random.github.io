@@ -9,59 +9,22 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #226e22;
+            background-color: #1c3d92;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: row;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
         }
 
-        #left-content,
-        #right-content,
         #main-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-
-        #left-content {
-            background-color: #f2f2f2;
-            width: 400px;
-        }
-
-        #left-content img,
-        #right-content img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-
-        #left-content img.active,
-        #right-content img.active {
-            display: block;
-        }
-
-        #right-content {
-            background-color: #e6e6e6;
-            width: 400px;
-        }
-
-        #main-content {
-            flex-grow: 1;
-            background-color: #b9ff63;
-            overflow-y: auto;
-            max-height: 100vh;
-        }
-
-        .container {
-            max-width: 330px;
-            margin: 0px auto;
-            padding: 60px;
-            border-radius: 50px;
+            background-color: #1d8bd1;
+            border-radius: 20px;
+            padding: 40px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 80%; /* Tăng kích thước */
+            max-width: 800px; /* Giới hạn kích thước */
         }
 
         .blink-text {
@@ -78,12 +41,13 @@
             text-transform: uppercase;
             font-weight: bold;
             background-color: #15e269;
-            color: #651d7d;
-            padding: 15px 22px;
+            color: #fff;
+            padding: 20px 30px; /* Tăng kích thước */
             border: none;
-            border-radius: 15px;
+            border-radius: 30px; /* Bo tròn các góc */
             cursor: pointer;
             transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
         }
 
         .navigation-button.active {
@@ -92,7 +56,7 @@
         }
 
         .navigation-button:hover {
-            background-color: #0056b3;
+            background-color: #008d43; /* Màu khi di chuột vào */
         }
 
         @keyframes colorBlinkButtons {
@@ -133,21 +97,23 @@
 
         input {
             width: 95%;
-            padding: 10px;
+            padding: 15px; /* Tăng kích thước padding */
             margin-bottom: 15px;
             border: 3px solid #65f132;
-            border-radius: 5px;
+            border-radius: 10px; /* Bo tròn các góc */
             margin-top: 10px;
-            margin-left: -5px;
+            font-size: 18px; /* Tăng kích thước font chữ */
         }
 
         button {
             background-color: #007bff;
             color: #fff;
-            padding: 10px 20px;
+            padding: 15px 30px; /* Tăng kích thước */
             border: none;
-            border-radius: 5px;
+            border-radius: 30px; /* Bo tròn các góc */
             cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
         }
 
         button:hover {
@@ -155,7 +121,8 @@
         }
 
         #phone-numbers {
-            font-size: 18px;
+            font-size: 24px; /* Tăng kích thước số điện thoại */
+            font-weight: bold; /* Đậm */
             margin-top: 20px;
             color: #333;
             white-space: nowrap;
@@ -174,7 +141,7 @@
         }
 
         th, td {
-            padding: 5px;
+            padding: 10px; /* Tăng kích thước padding */
             text-align: center;
         }
 
@@ -182,75 +149,47 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 10px 35px; /* Tăng kích thước */
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 12px;
-            margin: 2px;
+            font-size: 14px; /* Tăng kích thước chữ */
+            margin: 10px; /* Tăng khoảng cách với các phần tử khác */
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 30px; /* Bo tròn các góc */
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        }
+
+        .copy-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div id="left-content">
-        <img src="trai.jpg" class="active" alt="Left Image 1">
-        <img src="trai1.PNG" alt="Left Image 2">
-        <!-- Thêm các hình ảnh khác nếu cần -->
-    </div>
-
     <div id="main-content">
-        <div class="container">
-            <h1 class="blink-text">RANDOM</h1>
-            
-            <!-- Navigation buttons container -->
+        <h1 class="blink-text">RANDOM</h1>
+        
+        <!-- Navigation buttons container -->
             <div class="navigation-buttons">
-                <!-- Thay đổi href của các nút điều hướng để mở ra tab mới -->
-                <a href="https://vnwallstreet.top/#/home" class="navigation-button" id="btnNews" target="_blank">Tin Tức (New)</a>
-                <a href="https://byhim27.github.io/random.github.io/sukien.html" class="navigation-button" id="btnEvents" target="_blank">Sự Kiện</a>
-                <a href="https://byhim27.github.io/random.github.io/uudai.html" class="navigation-button" id="btnOffers" target="_blank">Ưu Đãi</a>
-                <a href="https://live.jasfx.net/signup" class="navigation-button" id="btnAccount" target="_blank">Mở Tài Khoản</a>
-
+                <a href="link" class="navigation-button" id="btnNews" target="_blank">Chưa cập nhật</a>
+                <a href="link" class="navigation-button" id="btnEvents" target="_blank">Chưa cập nhật</a>
+                <a href="link" class="navigation-button" id="btnOffers" target="_blank">Chưa cập nhật</a>
+                <a href="link" class="navigation-button" id="btnOffers" target="_blank">Chưa cập nhật</a>
             </div>
-            
-            <input type="text" id="prefix" placeholder="Nhập 4 số đầu của nhà mạng bất kỳ" onkeypress="handleKeyPress(event)">
-            <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
-            <div id="phone-numbers">
-                <table>
-                    <thead>
-                        
-                    </thead>
-                    <tbody id="phone-numbers-table-body"></tbody>
-                </table>
-            </div>
+        
+        <input type="text" id="prefix" placeholder="Nhập 4 số đầu của nhà mạng bất kỳ" onkeypress="handleKeyPress(event)">
+        <button onclick="generatePhoneNumbers()">Tạo Số Điện Thoại</button>
+        <div id="phone-numbers">
+            <table>
+                <thead></thead>
+                <tbody id="phone-numbers-table-body"></tbody>
+            </table>
         </div>
     </div>
 
-    <div id="right-content">
-        <img src="phai.jpg" class="active" alt="Right Image 1">
-        <img src="phai1.jpg" alt="Right Image 2">
-        <!-- Thêm các hình ảnh khác nếu cần -->
-    </div>
-
     <script>
-        let currentLeftImage = 0;
-        let currentRightImage = 0;
         let currentButton = 0;
-
-        function changeLeftImage() {
-            const leftImages = document.querySelectorAll("#left-content img");
-            leftImages[currentLeftImage].classList.remove("active");
-            currentLeftImage = (currentLeftImage + 1) % leftImages.length;
-            leftImages[currentLeftImage].classList.add("active");
-        }
-
-        function changeRightImage() {
-            const rightImages = document.querySelectorAll("#right-content img");
-            rightImages[currentRightImage].classList.remove("active");
-            currentRightImage = (currentRightImage + 1) % rightImages.length;
-            rightImages[currentRightImage].classList.add("active");
-        }
 
         function changeButtonColor() {
             const navigationButtons = document.querySelectorAll(".navigation-button");
@@ -258,10 +197,6 @@
             currentButton = (currentButton + 1) % navigationButtons.length;
             navigationButtons[currentButton].classList.add("active");
         }
-
-        // Thực hiện thay đổi hình ảnh mỗi 10 giây
-        setInterval(changeLeftImage, 10000);
-        setInterval(changeRightImage, 10000);
 
         // Thực hiện thay đổi màu nút mỗi 2 giây
         setInterval(changeButtonColor, 2000);
