@@ -9,104 +9,139 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #6dd5ed, #2193b0);
+            text-align: center;
+            background-color: #bcfffb;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            margin-top: 0px;
+            line-height: normal !important;
+            font-size: 16px;
+        }
+
+        #login-form {
+            max-width: 330px;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(10, 0, 5, 10.2);
+            background-color: #44ffbd;
+        }
+
+        #main-content {
+            background-color: #bcfff9;
+            overflow-y: auto;
+            max-height: 100vh;
+            width: 100%;
+            display: none;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        #left-content,
+        #right-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 50%;
+        }
+
+        #left-content img,
+        #right-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        #left-content img.active,
+        #right-content img.active {
+            display: block;
         }
 
         .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #7c8fd6;
+            margin-top: 5px;
         }
 
-        h1 {
-            color: #ff4500;
-            font-size: 36px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px #ffe4e1;
-        }
-
-        p {
-            font-size: 16px;
-            margin-bottom: 20px;
-            color: #4682b4;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #333;
-        }
-
-        input[type="text"], input[type="password"], input[type="datetime-local"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        button {
-            background-color: #ff4500;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #e03e00;
+        .blink-text {
+            animation: colorBlink 2s infinite;
         }
 
         .navigation-buttons {
+            margin-top: 20px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            justify-content: space-around;
         }
 
         .navigation-button {
             text-transform: uppercase;
             font-weight: bold;
-            background-color: #4caf50;
-            color: white;
+            background-color: #eeca38;
+            color: #31a252;
             padding: 15px 22px;
             border: none;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
+        .navigation-button.active {
+            animation: colorBlinkButtons 2s infinite;
+            background-color: #004080;
+        }
+
         .navigation-button:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
+        }
+
+        input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 3px solid #65f132;
+            border-radius: 15px;
+            margin-top: 10px;
+            margin-left: -5px;
+        }
+
+        button {
+            background-color: #4f277d;
+            color: #17f3e8;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
 
         #phone-numbers {
             font-size: 18px;
             color: #333;
-            max-height: 300px;
-            overflow-y: auto;
-            width: 100%;
+            max-height: 300px; 
+            overflow-y: auto; 
+            margin: 5px;
+            margin-top: 5px;
+            width: auto;
             box-sizing: border-box;
-            margin: 20px 0;
+        }
+
+        .table-container {
+            max-width: 100%;
+            overflow-x: auto;
         }
 
         table {
@@ -125,17 +160,22 @@
         }
 
         .copy-button {
-            background-color: #ff4500;
-            color: white;
+            background-color: #2d5834;
+            color: #05eec1;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 50px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 0px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 15px;
             transition: background-color 0.3s;
         }
 
         .copy-button:hover {
-            background-color: #e03e00;
+            background-color: #0056b3;
         }
 
         .copied-button {
@@ -149,106 +189,54 @@
             font-weight: bold;
         }
 
+        @keyframes colorBlinkButtons {
+            0% {
+                color: blue;
+            }
+
+            25% {
+                color: red;
+            }
+
+            50% {
+                color: green;
+            }
+
+            75% {
+                color: orange;
+            }
+
+            100% {
+                color: blue;
+            }
+        }
+
         @keyframes colorBlink {
-            0% { color: blue; }
-            25% { color: red; }
-            50% { color: green; }
-            75% { color: orange; }
-            100% { color: blue; }
-        }
+            0% {
+                color: blue;
+            }
 
-        .blink-text {
-            animation: colorBlink 2s infinite;
-        }
+            25% {
+                color: red;
+            }
 
-        /* Phần login */
-        #login-form {
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+            50% {
+                color: green;
+            }
 
-        #login-form h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+            75% {
+                color: orange;
+            }
 
-        #login-form form {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            100% {
+                color: blue;
+            }
         }
-
-        #login-form input {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        #login-form button {
-            width: 100%;
-            padding: 10px;
-        }
-
-        #login-form p {
-            margin-top: 10px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        #login-form p a {
-            color: #ff4500;
-            text-decoration: none;
-        }
-
-        #login-form p a:hover {
-            text-decoration: underline;
-        }
-
-        /* Thông báo */
-        .note {
-            font-size: 14px;
-            color: #666;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        /* Phần footer */
-        .footer {
-            margin-top: auto;
-            padding: 20px;
-            background-color: #f1f1f1;
-            text-align: center;
-            width: 100%;
-        }
-
-        .footer p {
-            margin: 0;
-            color: #666;
-        }
-
-        .footer p a {
-            color: #ff4500;
-            text-decoration: none;
-        }
-
-        .footer p a:hover {
-            text-decoration: underline;
-        }
-
     </style>
 </head>
 
 <body>
     <div id="login-form">
-        <h1>Đăng nhập</h1>
         <form onsubmit="login(event)">
             <label for="username">Số ZoIPer:</label>
             <input type="text" id="username" required>
@@ -258,32 +246,35 @@
             <br>
             <button type="submit">Đăng nhập</button>
         </form>
-        <p>Nếu chưa có tài khoản: <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWT0R6dTJqUExi4ySO39RGN7QhpCIMkXVdYg5Z9LWOhOvCNA/viewform?usp=sf_link" target="_blank">Bấm vào đây để yêu cầu mở</a>.</p>
-        <div class="note">
-            <p>Mã nguồn trang web được tạo ra chỉ mang tính chất tham khảo. Xin cảm ơn!</p>
+        <p>Nếu chưa có tài khoản : <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWT0R6dTJqUExi4ySO39RGN7QhpCIMkXVdYg5Z9LWOhOvCNA/viewform?usp=sf_link" target="_blank"> <Br>Bấm vào đây để yêu cầu mở</a>.</p> <!-- New text with registration link -->
+        <div style="margin-top: 20px; font-style: italic; color: #666;">
+            <p>Lưu ý: Mã nguồn trang web được tạo ra chỉ mang tính chất tham khảo.</p>
+     <!-- <p>Nếu có bất kì thắc mắc nào xin gửi về địa chỉ <a href="mailto:nguyenhoangnam2710a@gmail.com">nguyenhoangnam2710a@gmail.com</a>.</p> -->
+            <p>Xin cảm ơn!</p>
         </div>
     </div>
 
-    <div class="container" id="main-content" style="display: none;">
-        <h1 class="blink-text" onclick="reloadPage()">AUTO CALL</h1>
-        <p>Version@0006</p>
+    <div id="main-content">
+        <div class="container">
+            <h1 class="blink-text" onclick="reloadPage()">AUTO CALL</h1>
+            <Br><p>Vesion@0006</p>
 
-        <div class="navigation-buttons">
-            <button class="navigation-button" id="btnNews">Chưa cập nhật</button>
-            <button class="navigation-button" id="btnEvents">Chưa cập nhật</button>
-            <button class="navigation-button" id="btnOffers1">Chưa cập nhật</button>
-            <button class="navigation-button" id="btnOffers2">Chưa cập nhật</button>
-        </div>
+            <div class="navigation-buttons">
+                <a href="link" class="navigation-button" id="btnNews" target="_blank">Chưa cập nhật</a>
+                <a href="link" class="navigation-button" id="btnEvents" target="_blank">Chưa cập nhật</a>
+                <a href="link" class="navigation-button" id="btnOffers" target="_blank">Chưa cập nhật</a>
+                <a href="link" class="navigation-button" id="btnOffers" target="_blank">Chưa cập nhật</a>
+            </div>
 
-        <input type="text" id="prefix" placeholder="Nhập 4 số đầu " onkeypress="handleKeyPress(event)">
-        <input type="text" id="customNumbers" placeholder="Nhập số ZoIPer của bạn !" onkeydown="handleEnterKey(event)">
-        <button onclick="generatePhoneNumbers()">Tạo Số</button>
-
-        <div id="phone-numbers" class="table-container">
-            <table>
-                <thead></thead>
-                <tbody id="phone-numbers-table-body"></tbody>
-            </table>
+            <input type="text" id="prefix" placeholder="Nhập 4 số đầu " onkeypress="handleKeyPress(event)">
+            <input type="text" id="customNumbers" placeholder="Nhập số ZoIPer của bạn !" onkeydown="handleEnterKey(event)">
+            <button onclick="generatePhoneNumbers()">Tạo Số </button>
+            <div id="phone-numbers" class="table-container">
+                <table>
+                    <thead></thead>
+                    <tbody id="phone-numbers-table-body"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -326,7 +317,7 @@
 
             if (checkCredentials(username, password)) {
                 document.getElementById("login-form").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
+                document.getElementById("main-content").style.display = "flex";
                 isLoggedIn = true;
                 history.replaceState(null, null, window.location.href);
             } else {
@@ -337,9 +328,38 @@
         window.onload = function () {
             if (isLoggedIn) {
                 document.getElementById("login-form").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
+                document.getElementById("main-content").style.display = "flex";
             }
         }
+
+        let currentLeftImage = 0;
+        let currentRightImage = 0;
+        let currentButton = 0;
+
+        function changeLeftImage() {
+            const leftImages = document.querySelectorAll("#left-content img");
+            leftImages[currentLeftImage].classList.remove("active");
+            currentLeftImage = (currentLeftImage + 1) % leftImages.length;
+            leftImages[currentLeftImage].classList.add("active");
+        }
+
+        function changeRightImage() {
+            const rightImages = document.querySelectorAll("#right-content img");
+            rightImages[currentRightImage].classList.remove("active");
+            currentRightImage = (currentRightImage + 1) % rightImages.length;
+            rightImages[currentRightImage].classList.add("active");
+        }
+
+        function changeButtonColor() {
+            const navigationButtons = document.querySelectorAll(".navigation-button");
+            navigationButtons.forEach(button => button.classList.remove("active"));
+            currentButton = (currentButton + 1) % navigationButtons.length;
+            navigationButtons[currentButton].classList.add("active");
+        }
+
+        setInterval(changeLeftImage, 10000);
+        setInterval(changeRightImage, 10000);
+        setInterval(changeButtonColor, 2000);
 
         function reloadPage() {
             window.location.href = window.location.href;
@@ -362,6 +382,7 @@
             const username = document.getElementById("username").value;
             const loggedInUser = userCredentials[username];
 
+            // Kiểm tra xem số JoIPer nhập vào có khớp với tên đăng nhập không
             if (!loggedInUser || loggedInUser.zoiper !== customNumbers) {
                 alert("Số ZoIPer không khớp với tên đăng nhập!");
                 return;
@@ -432,6 +453,7 @@
         }
 
         function modifyNumbers(phoneNumber) {
+            // Có thể thêm các bước chỉnh sửa số điện thoại tại đây nếu cần
             return phoneNumber;
         }
         
