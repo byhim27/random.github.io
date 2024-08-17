@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -264,10 +265,11 @@
         </div>
     </div>
 
-    <div class="container" id="main-content" style="display: none;">
-        <h1 class="blink-text">AUTO CALL</h1>
-        <p>Version@0009</p>
-
+<div class="container" id="main-content" style="display: none;">
+    <h1 class="blink-text">AUTO CALL</h1>
+    <p>Version@0010</p>
+    <div id="welcome-message" style="font-size: 18px; color: #4682b4; margin-bottom: 20px;">
+    </div>
         <div class="navigation-buttons">
             <button class="navigation-button" id="btnNews">Thông Tin </button>
             <button class="navigation-button" id="btnEvents">Tài Khoản</button>
@@ -322,21 +324,27 @@
             return password === decodedPassword;
         }
 
-        function login(event) {
-            event.preventDefault();
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+function login(event) {
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-            if (checkCredentials(username, password)) {
-                document.getElementById("login-form").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
-                isLoggedIn = true;
-                history.replaceState(null, null, window.location.href);
-            } else {
-                alert("Tên đăng nhập hoặc mật khẩu không đúng!");
-            }
-        }
+    if (checkCredentials(username, password)) {
+        // Ẩn form đăng nhập
+        document.getElementById("login-form").style.display = "none";
+        // Hiển thị nội dung chính
+        document.getElementById("main-content").style.display = "block";
+        isLoggedIn = true;
 
+        // Hiển thị thông báo chào mừng
+        const welcomeMessage = document.getElementById("welcome-message");
+        welcomeMessage.textContent = `Chào bạn: ${username}`;
+
+        history.replaceState(null, null, window.location.href);
+    } else {
+        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+    }
+}
         window.onload = function () {
             if (isLoggedIn) {
                 document.getElementById("login-form").style.display = "none";
