@@ -1,393 +1,224 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <link rel="icon" href="logo.PNG" type="image/png">
+    <link rel="icon" href="icon.PNG" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTO CALL</title>
+    <title>RANDOM</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #6dd5ed, #2193b0);
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #1c3d92, #1d8bd1);
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            color: #ffffff;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
+        #main-content {
             background-color: #ffffff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            color: #333;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
-            color: #ff4500;
-            font-size: 36px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px #ffe4e1;
-        }
-
-        p {
-            font-size: 16px;
             margin-bottom: 20px;
-            color: #4682b4;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #333;
-        }
-
-        input[type="text"], input[type="password"], input[type="datetime-local"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        button {
-            background-color: #ff4500;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #e03e00;
         }
 
         .navigation-buttons {
+            margin-top: 20px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            width: 100%;
         }
 
         .navigation-button {
-            text-transform: uppercase;
             font-weight: bold;
-            background-color: #4caf50;
-            color: white;
-            padding: 15px 22px;
+            background: linear-gradient(135deg, #15e269, #00b5ad);
+            color: #fff;
+            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: transform 0.3s, background-color 0.3s;
+            flex-grow: 1;
+            margin: 0 10px;
+            text-align: center;
+            white-space: nowrap;
         }
 
         .navigation-button:hover {
-            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .navigation-button.active {
+            animation: colorBlinkButtons 2s infinite;
+            background-color: #004080;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #65f132;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
         }
 
         #phone-numbers {
-            font-size: 18px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
             color: #333;
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
             width: 100%;
-            box-sizing: border-box;
-            margin: 20px 0;
+            text-align: left;
         }
 
         table {
             width: 100%;
+            margin-top: 10px;
             border-collapse: collapse;
-            table-layout: fixed;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
         }
 
         th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .copy-button {
-            background-color: #ff4500;
+            background-color: #4CAF50;
             color: white;
             border: none;
             padding: 10px 20px;
+            border-radius: 30px;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .copy-button:hover {
-            background-color: #e03e00;
+            background-color: #45a049;
+            transform: scale(1.05);
         }
-
-        .copied-button {
-            background-color: #e60000 !important;
-            color: white;
-            transform: scale(1.1);
-            transition: background-color 0.3s, transform 0.3s;
+       @keyframes colorBlink {
+            0% {
+                color: blue;
+            }
+            25% {
+                color: red;
+            }
+            50% {
+                color: green;
+            }
+            75% {
+                color: orange;
+            }
+            100% {
+                color: blue;
+            }
         }
-
-        .original-phone-number {
-            font-weight: bold;
+        @keyframes colorBlinkButtons {
+            0% {
+                color: blue;
+            }
+            25% {
+                color: red;
+            }
+            50% {
+                color: green;
+            }
+            75% {
+                color: orange;
+            }
+            100% {
+                color: blue;
+            }
         }
-
-        @keyframes colorBlink {
-            0% { color: blue; }
-            25% { color: red; }
-            50% { color: green; }
-            75% { color: orange; }
-            100% { color: blue; }
-        }
-
         .blink-text {
             animation: colorBlink 2s infinite;
-        }
-
-        /* Phần login */
-        #login-form {
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #login-form h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        #login-form form {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #login-form input {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        #login-form button {
-            width: 100%;
-            padding: 10px;
-        }
-
-        #login-form p {
-            margin-top: 10px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        #login-form p a {
-            color: #ff4500;
-            text-decoration: none;
-        }
-
-        #login-form p a:hover {
-            text-decoration: underline;
-        }
-
-        /* Thông báo */
-        .note {
-            font-size: 14px;
-            color: #666;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        /* Phần footer */
-        .footer {
-            margin-top: auto;
-            padding: 20px;
-            background-color: #f1f1f1;
-            text-align: center;
-            width: 100%;
-        }
-
-        .footer p {
-            margin: 0;
-            color: #666;
-        }
-
-        .footer p a {
-            color: #ff4500;
-            text-decoration: none;
-        }
-
-        .footer p a:hover {
-            text-decoration: underline;
-        }
-
     </style>
 </head>
-
 <body>
-    <div id="login-form">
-        <h1>Đăng nhập</h1>
-        <form onsubmit="login(event)">
-            <label for="username">Số ZoIPer:</label>
-            <input type="text" id="username" required>
-            <br>
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" required>
-            <br>
-            <button type="submit">Đăng nhập</button>
-        </form>
-        <p>Nếu chưa có tài khoản: <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWT0R6dTJqUExi4ySO39RGN7QhpCIMkXVdYg5Z9LWOhOvCNA/viewform?usp=sf_link" target="_blank">Bấm vào đây để yêu cầu mở</a>.</p>
-        <div class="note">
-            <p>Mã nguồn trang web được tạo ra chỉ mang tính chất tham khảo. Xin cảm ơn!</p>
-        </div>
-    </div>
-
-<div class="container" id="main-content" style="display: none;">
-    <h1 class="blink-text">AUTO CALL</h1>
-    <p>Version@0010</p>
-
-    <!-- Thêm phần này vào -->
-    <div id="welcome-message" style="font-size: 18px; color: #4682b4; margin-bottom: 20px;">
-        <!-- Nội dung thông báo sẽ được cập nhật tại đây -->
-    </div>
+    <div id="main-content">
+        <h1 class="blink-text">RANDOM</h1>
         <div class="navigation-buttons">
-            <button class="navigation-button" id="btnNews">Thông Tin </button>
-            <button class="navigation-button" id="btnEvents">Tài Khoản</button>
-            <button class="navigation-button" id="btnOffers1">Đã Được </button>
-            <button class="navigation-button" id="btnOffers2">Cập Nhật</button>
+            <a href="link" class="navigation-button" id="btnNews" target="_blank">Chưa cập nhật</a>
+            <a href="https://byhim27.github.io/random.github.io/AUTOCALL.html" class="navigation-button" id="btnOffers" target="_blank">Trải nghiệm tốt hơn [ New ]</a>
+            <a href="link" class="navigation-button" id="btnOffers" target="_blank">Chưa cập nhật</a>
         </div>
 
         <input type="text" id="prefix" placeholder="Nhập 4 số đầu " onkeypress="handleKeyPress(event)">
-        <input type="text" id="customNumbers" placeholder="Nhập số ZoIPer của bạn !" onkeydown="handleEnterKey(event)">
         <button onclick="generatePhoneNumbers()">Tạo Số</button>
 
-        <div id="phone-numbers" class="table-container">
+        <div id="phone-numbers">
             <table>
                 <thead></thead>
                 <tbody id="phone-numbers-table-body"></tbody>
             </table>
         </div>
     </div>
-
     <script>
-        let isLoggedIn = false;
-        const userCredentials = {
-            "5982": { password: "Y2hpZW41OTgy", zoiper: "5982" },
-            "5951": { password: "aHVvbmc1OTUx", zoiper: "5951" },
-            "5780": { password: "dGFuNTc4MA==", zoiper: "5780" },
-            "5871": { password: "aHV5NTg3MQ==", zoiper: "5871" },
-            "5920": { password: "ZGF0NTkyMA==", zoiper: "5920" },
-            "5914": { password: "aGFuaDU5MTQ=", zoiper: "5914" },
-            "5855": { password: "aG9hbmdhbmg1ODU1", zoiper: "5855" },
-            "5776": { password: "Y2h1bmc1Nzc2", zoiper: "5776" },
-            "5801": { password: "ZHVvbmc1ODAx", zoiper: "5801" },
-            "5794": { password: "dHJ1b25nNTc5NA==", zoiper: "5794" },
-            "5971": { password: "TmluaDU5NzE=", zoiper: "5971" },
-            "5777": { password: "bHVvbmc1Nzc3", zoiper: "5777" },
-            "5856": { password: "S2llbjEwMTA=", zoiper: "5856" },
-            "5782": { password: "aHV5ZW41Nzgy", zoiper: "5782" },
-            "5964": { password: "cXV5bmg1OTY0", zoiper: "5964" },
-            "5881": { password: "TWVvbWVvMDk=", zoiper: "5881" },
-            "5791": { password: "UGhhbWxhbjIwMDJA", zoiper: "5791" },
-            "5939": { password: "MTIzNDU2QA==", zoiper: "5939" },
-          //"5874": { password: "UXVhbmdodXkyMDM=", zoiper: "5874" },
-            // Thêm các tài khoản khác nếu cần
-        };
+        let currentButton = 0;
 
-        function checkCredentials(username, password) {
-            const user = userCredentials[username];
-            if (!user) {
-                return false;
-            }
-
-            const decodedPassword = atob(user.password);
-            return password === decodedPassword;
+        function changeButtonColor() {
+            const navigationButtons = document.querySelectorAll(".navigation-button");
+            navigationButtons.forEach(button => button.classList.remove("active"));
+            currentButton = (currentButton + 1) % navigationButtons.length;
+            navigationButtons[currentButton].classList.add("active");
         }
 
-function login(event) {
-    event.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+        // Thực hiện thay đổi màu nút mỗi 2 giây
+        setInterval(changeButtonColor, 2000);
 
-    if (checkCredentials(username, password)) {
-        // Ẩn form đăng nhập
-        document.getElementById("login-form").style.display = "none";
-        // Hiển thị nội dung chính
-        document.getElementById("main-content").style.display = "block";
-        isLoggedIn = true;
-
-        // Hiển thị thông báo chào mừng
-        const welcomeMessage = document.getElementById("welcome-message");
-        welcomeMessage.textContent = `Xin chào: ${username}`;
-
-        history.replaceState(null, null, window.location.href);
-    } else {
-        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
-    }
-}
-        window.onload = function () {
-            if (isLoggedIn) {
-                document.getElementById("login-form").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
-            }
-        }
-
-        function reloadPage() {
-            window.location.href = window.location.href;
-        }
-
+        // Các hàm khác không thay đổi
         function generatePhoneNumber() {
             const prefix = document.getElementById("prefix").value;
             if (prefix.length !== 4 || isNaN(prefix)) {
-                alert("Vui lòng nhập 4 số đầu.");
-                return;
-            }
-
-            const customNumbersInput = document.getElementById("customNumbers");
-            const customNumbers = customNumbersInput.value;
-            if (customNumbers.length !== 4 || isNaN(customNumbers)) {
-                alert("Vui lòng nhập 4 số ZoIPer của bạn.");
-                return;
-            }
-
-            const username = document.getElementById("username").value;
-            const loggedInUser = userCredentials[username];
-
-            if (!loggedInUser || loggedInUser.zoiper !== customNumbers) {
-                alert("Số ZoIPer không khớp với tên đăng nhập!");
+                document.getElementById("error-message").style.display = "block";
+                setTimeout(function () {
+                    document.getElementById("error-message").style.display = "none";
+                }, 2000);
                 return;
             }
 
             const randomDigits = Math.floor(100000 + Math.random() * 900000);
             const phoneNumber = prefix + randomDigits.toString();
-            const encryptedPhoneNumber = encryptPhoneNumber(phoneNumber);
-            const modifiedNumbers = modifyNumbers(encryptedPhoneNumber);
-
-            const callLink = `https://api-prod.mipbx.vn/api/v1/call/clicktocallv2?secret=b3f9e70bb94a8660b718fbc280d25680&phone=${modifiedNumbers}&extension=${customNumbers}`;
-            return { callLink, originalNumber: phoneNumber };
+            return phoneNumber;
         }
 
         function generatePhoneNumbers() {
@@ -395,11 +226,11 @@ function login(event) {
             phoneNumbersTableBody.innerHTML = "";
 
             for (let i = 0; i < 20; i++) {
-                const { callLink, originalNumber } = generatePhoneNumber();
+                const phoneNumber = generatePhoneNumber();
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td class="original-phone-number">${originalNumber}</td>
-                    <td><button class="copy-button" onclick="copyPhoneNumber(this, '${callLink}', '${originalNumber}')">Copy Call</button></td>
+                    <td>${phoneNumber}</td>
+                    <td><button class="copy-button" onclick="copyPhoneNumber(this)">Sao Chép</button></td>
                 `;
                 phoneNumbersTableBody.appendChild(row);
             }
@@ -407,55 +238,24 @@ function login(event) {
             document.getElementById("phone-numbers").style.display = "block";
         }
 
-        function copyPhoneNumber(button, link, originalNumber) {
+        function copyPhoneNumber(button) {
+            const phoneNumber = button.parentNode.previousElementSibling.textContent;
             const textarea = document.createElement("textarea");
-            textarea.value = originalNumber;
+            textarea.value = phoneNumber;
             document.body.appendChild(textarea);
             textarea.select();
             document.execCommand("copy");
             document.body.removeChild(textarea);
 
-            window.open(link, '_blank');
-
-            button.innerHTML = "Copied!";
-            button.classList.add("copied-button");
+            button.style.backgroundColor = "#FF0000";
+            button.textContent = "Đã Sao Chép";
         }
 
         function handleKeyPress(event) {
-            if (!/[0-9]/.test(event.key)) {
-                event.preventDefault();
-            }
-        }
-
-        function encryptPhoneNumber(phoneNumber) {
-            let encryptedNumber = "";
-            for (let i = 0; i < phoneNumber.length; i++) {
-                let digit = parseInt(phoneNumber[i]);
-                if (i === 4) {
-                    digit = (digit + 1) % 10;
-                } else if (i === 5) {
-                    digit = (digit - 1 + 10) % 10;
-                } else if (i === 8) {
-                    digit = (digit - 1 + 10) % 10;
-                } else if (i === 9) {
-                    digit = (digit + 1) % 10;
-                }
-                encryptedNumber += digit.toString();
-            }
-            return encryptedNumber;
-        }
-
-        function modifyNumbers(phoneNumber) {
-            return phoneNumber;
-        }
-        
-        function handleEnterKey(event) {
-            if (event.key === "Enter") {
-                event.preventDefault(); 
-                generatePhoneNumbers(); 
+            if (event.key === 'Enter') {
+                generatePhoneNumbers();
             }
         }
     </script>
 </body>
-
 </html>
