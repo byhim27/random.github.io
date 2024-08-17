@@ -7,47 +7,60 @@
     <title>RANDOM</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             text-align: center;
-            background-color: #1c3d92;
+            background: linear-gradient(135deg, #1c3d92, #1d8bd1);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #ffffff;
         }
 
         #main-content {
-            background-color: #1d8bd1;
+            background-color: #ffffff;
+            color: #333;
             border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            width: 80%; /* Tăng kích thước */
-            max-width: 800px; /* Giới hạn kích thước */
+            padding: 40px 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .blink-text {
-            animation: colorBlink 2s infinite;
+        h1 {
+            margin-bottom: 20px;
         }
 
         .navigation-buttons {
             margin-top: 20px;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            width: 100%;
         }
 
         .navigation-button {
-            text-transform: uppercase;
             font-weight: bold;
-            background-color: #15e269;
+            background: linear-gradient(135deg, #15e269, #00b5ad);
             color: #fff;
-            padding: 20px 30px; /* Tăng kích thước */
+            padding: 12px 20px;
             border: none;
-            border-radius: 30px; /* Bo tròn các góc */
+            border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+            transition: transform 0.3s, background-color 0.3s;
+            flex-grow: 1;
+            margin: 0 10px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .navigation-button:hover {
+            transform: scale(1.05);
         }
 
         .navigation-button.active {
@@ -55,10 +68,89 @@
             background-color: #004080;
         }
 
-        .navigation-button:hover {
-            background-color: #008d43; /* Màu khi di chuột vào */
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #65f132;
+            border-radius: 10px;
+            font-size: 18px;
         }
 
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        #phone-numbers {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+            max-height: 400px;
+            overflow-y: auto;
+            width: 100%;
+            text-align: left;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .copy-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+       @keyframes colorBlink {
+            0% {
+                color: blue;
+            }
+            25% {
+                color: red;
+            }
+            50% {
+                color: green;
+            }
+            75% {
+                color: orange;
+            }
+            100% {
+                color: blue;
+            }
+        }
         @keyframes colorBlinkButtons {
             0% {
                 color: blue;
@@ -76,109 +168,22 @@
                 color: blue;
             }
         }
-
-        @keyframes colorBlink {
-            0% {
-                color: blue;
-            }
-            25% {
-                color: red;
-            }
-            50% {
-                color: green;
-            }
-            75% {
-                color: orange;
-            }
-            100% {
-                color: blue;
-            }
-        }
-
-        input {
-            width: 95%;
-            padding: 15px; /* Tăng kích thước padding */
-            margin-bottom: 15px;
-            border: 3px solid #65f132;
-            border-radius: 10px; /* Bo tròn các góc */
-            margin-top: 10px;
-            font-size: 18px; /* Tăng kích thước font chữ */
-        }
-
-        button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 15px 30px; /* Tăng kích thước */
-            border: none;
-            border-radius: 30px; /* Bo tròn các góc */
-            cursor: pointer;
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #phone-numbers {
-            font-size: 24px; /* Tăng kích thước số điện thoại */
-            font-weight: bold; /* Đậm */
-            margin-top: 20px;
-            color: #333;
-            white-space: nowrap;
-            overflow-x: auto;
-            max-height: 400px;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 10px;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-
-        th, td {
-            padding: 10px; /* Tăng kích thước padding */
-            text-align: center;
-        }
-
-        .copy-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 35px; /* Tăng kích thước */
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px; /* Tăng kích thước chữ */
-            margin: 10px; /* Tăng khoảng cách với các phần tử khác */
-            cursor: pointer;
-            border-radius: 30px; /* Bo tròn các góc */
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-        }
-
-        .copy-button:hover {
-            background-color: #45a049;
-        }
+        .blink-text {
+            animation: colorBlink 2s infinite;
     </style>
 </head>
 <body>
     <div id="main-content">
         <h1 class="blink-text">RANDOM</h1>
-        
-        <!-- Navigation buttons container -->
-            <div class="navigation-buttons">
-                <a href="link" class="navigation-button" id="btnNews" target="_blank">Chưa cập nhật</a>
-                <a href="https://byhim27.github.io/random.github.io/AUTOCALL.html" class="navigation-button" id="btnOffers" target="_blank">Trải nghiệm tốt hơn [ New ]</a>
-                <a href="link" class="navigation-button" id="btnOffers" target="_blank">Chưa cập nhật</a>
-            </div>
-        
+        <div class="navigation-buttons">
+            <a href="link" class="navigation-button" id="btnNews" target="_blank">Chưa cập nhật</a>
+            <a href="https://byhim27.github.io/random.github.io/AUTOCALL.html" class="navigation-button" id="btnOffers" target="_blank">Trải nghiệm tốt hơn [ New ]</a>
+            <a href="link" class="navigation-button" id="btnOffers" target="_blank">Chưa cập nhật</a>
+        </div>
+
         <input type="text" id="prefix" placeholder="Nhập 4 số đầu " onkeypress="handleKeyPress(event)">
-        <button onclick="generatePhoneNumbers()">Tạo Số </button>
+        <button onclick="generatePhoneNumbers()">Tạo Số</button>
+
         <div id="phone-numbers">
             <table>
                 <thead></thead>
@@ -186,7 +191,6 @@
             </table>
         </div>
     </div>
-
     <script>
         let currentButton = 0;
 
