@@ -215,7 +215,7 @@
 
         /* Thông báo */
         .note {
-            font-size: 14px;
+            font-size: 20px;
             color: #666;
             margin-top: 10px;
             text-align: center;
@@ -243,7 +243,21 @@
         .footer p a:hover {
             text-decoration: underline;
         }
-
+.notification {
+    background-color: #a0f96e;
+    color: white;
+    padding: 70px;
+    border-radius: 30px;
+    margin: 0px;
+    position: fixed;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 1000;
+}
     </style>
 </head>
 
@@ -276,7 +290,10 @@
             <button class="navigation-button" id="btnOffers1">Đã Được </button>
             <button class="navigation-button" id="btnOffers2">Cập Nhật</button>
         </div>
-
+<div id="notification" class="notification" style="display: none;">
+    <p>Thông báo : Bảo trì nâng cấp hệ thống <br> Thời gian dự kiến: 00h01 ngày 21/9/2024<br>Thời gian hoàn tất(dự kiến): 00h01 ngày 23/9/2024 <br> Xin lỗi về sự bất tiện này !! </p>
+    <button onclick="closeNotification()">Đóng</button>
+</div>
         <input type="text" id="prefix" placeholder="Nhập 4 số đầu " onkeypress="handleKeyPress(event)">
         <input type="text" id="customNumbers" placeholder="Nhập số ZoIPer của bạn !" onkeydown="handleEnterKey(event)">
         <button onclick="generatePhoneNumbers()">Tạo Số</button>
@@ -329,27 +346,27 @@ function login(event) {
     const password = document.getElementById("password").value;
 
     if (checkCredentials(username, password)) {
-        // Ẩn form đăng nhập
         document.getElementById("login-form").style.display = "none";
-        // Hiển thị nội dung chính
         document.getElementById("main-content").style.display = "block";
         isLoggedIn = true;
 
-        // Hiển thị thông báo chào mừng
         const welcomeMessage = document.getElementById("welcome-message");
         welcomeMessage.textContent = `Chào bạn: ${username}`;
+
+        // Hiển thị thông báo
+        document.getElementById("notification").style.display = "block";
 
         history.replaceState(null, null, window.location.href);
     } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
     }
 }
-        window.onload = function () {
-            if (isLoggedIn) {
-                document.getElementById("login-form").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
-            }
-        }
+
+function closeNotification() {
+    document.getElementById("notification").style.display = "none";
+}
+
+
 
         function reloadPage() {
             window.location.href = window.location.href;
