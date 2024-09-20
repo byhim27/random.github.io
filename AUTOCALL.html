@@ -13,25 +13,73 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #fff;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff); /* Gradient nền */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
             text-align: center;
         }
 
         .maintenance-message {
             max-width: 600px;
-            padding: 20px;
-            background-color: #f1f1f1;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .maintenance-message:hover {
+            transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .maintenance-message {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            p {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="maintenance-message">
         <h1>Thông Báo Bảo Trì</h1>
-        <p>Chúng tôi đang trong quá trình bảo trì để nâng cấp hệ thống . Xin lỗi vì sự bất tiện này.</p>
-        <p>Trong thời gian bảo trì các bạn vẫn có thể truy cập trang Random . Trân trọng !!!</p>
+        <p>Chúng tôi đang trong quá trình bảo trì để nâng cấp hệ thống. Xin lỗi vì sự bất tiện này.</p>
+        <p>Trong thời gian bảo trì các bạn vẫn có thể truy cập trang Random. Trân trọng !!!</p>
         <p>Xin vui lòng quay lại sau.</p>
     </div>
 </body>
